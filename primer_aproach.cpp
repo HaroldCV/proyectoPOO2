@@ -7,7 +7,7 @@ class Person
 {
 	public:
 		int x,y;
-		int status;	//0->susceptible, 1->infected, 2->recovered
+		int status;	//0->susceptible, 1->infectado, 2->recuperado
 		float recovery_time;
 		
 		Person()
@@ -19,7 +19,7 @@ class Person
 
 int main()
 {
-	//parameters
+	//parametros iniciales 
 	int n=500, n_S=0, n_I=0, n_R=0;
 	float size=5, vel=4, radius=15, t=0, dt=0.05;
 	
@@ -33,7 +33,7 @@ int main()
 	initgraph(&gd,&gm,NULL);
 	settextstyle(0,0,2);
 	
-	//initialize the population
+	//inicializacion de la poblacion
 	for(i=0; i<n; i++)
 	{
 		tmp[i].x = rand()%1365;
@@ -41,7 +41,7 @@ int main()
 		n_S ++;
 	}
 	
-	//infect 3 people from the population
+	//infectamos 3 individuos de la poblacion
 	for(i=0; i<3; i++)
 	{
 		tmp[i].status = 1;
@@ -85,17 +85,17 @@ int main()
 			fillellipse(P[i].x, P[i].y, size, size);
 		}
 		
-		//print stats
+		//se imprime las estadisticas
 		setcolor(15);
 		sprintf(text,"t=%.1f S=%.2f%% I=%.2f%% R=%.2f%%",t,n_S*100.0/n,n_I*100.0/n,n_R*100.0/n);
 		outtextxy(0,0,text);
 		
-		//update status and positions
+		//actualizamos las pocisiones y estadisticas
 		for(i=0; i<n; i++)
 		{
 			if(P[i].status == 0)
 			{
-				//check for infections
+				//verificamos los infectados
 				for(j=0; j<n; j++)
 				{
 					if( (i!=j) && (P[j].status==1) && (sqrt((P[i].x-P[j].x)*(P[i].x-P[j].x) + (P[i].y-P[j].y)*(P[i].y-P[j].y)) < radius) )
@@ -117,6 +117,7 @@ int main()
 		
 		t += dt;
 		Sleep(50);
+		// Esta funcion permite ver con mayor facilidad lo que se esta pintando en pantalla 
 	}
 	
 	getch();
